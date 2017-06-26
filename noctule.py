@@ -51,16 +51,24 @@ def clearScreen():
 
 def get():
     x = input("\n\t1. SQLi\n\t2. XSS\n\t3. LFI\n\t4. RFI\n\t5. RCE\n")
-    if x=="1":atk = sqli
+    if x=="1":
+        with open("sql_errors.txt", "r") as f:l=f.readlines()
+        for i in sqli:
+            req = args.url + i
+            try:
+                with urllib.request.urlopen(req) as response:
+                   html = str(response.read())
+            except Exception as e:
+                print("\nLikely vulnerable")
+                print(type(e))
+                print(e)
+                print(html)
+                break
+
     elif x=="2":atk = xss
     elif x=="3":atk = lfi
     elif x=="4":atk = rfi
     elif x=="5":atk = rce
-    for i in atk:
-        with urllib.request.urlopen(args.url) as response:
-           html = response.read().lower()
-        if b'error' in html and b'query' in html:print(str(i) + ". Likely vulnerable.")
-        else:print(str(i) + ". No vulnerability detected.")
 
 def post():
     print("POST functionality not yet developed.")
