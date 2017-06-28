@@ -38,7 +38,7 @@ lfi = ["C:\\boot.ini",
         "C\\php\\sessions\\",
         "C:\\php5\\sessions\\",
         "C:\\php4\\sessions\\"]
-rfi = []
+rfi = ["http://www.snailbook.com/docs/publickey-file.txt"]
 rce = []
 
 def clearScreen():
@@ -100,7 +100,19 @@ def get():
                 if vuln:print("Likely vulnerable.\n")
             except Exception as e:
                 print(str(e) + "\n")
-    elif x=="4":atk = rfi
+    elif x=="4":
+        n = args.url.find('=') + 1
+        for i in rfi:
+            print("Trying: " + i)
+            req = args.url[:n] + i
+            try:
+                with urllib.request.urlopen(req) as response:
+                   html = str(response.read())
+                with urllib.request.urlopen(i) as response:
+                    file = str(response.read())
+                if file in html:print("Likely vulnerable.\n")
+            except Exception as e:
+                print(str(e) + "\n")
     elif x=="5":atk = rce
 
 def post():
