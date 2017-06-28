@@ -102,9 +102,9 @@ def get():                                                                  # Fu
                 if vuln:
                     print("File detected.\n")
                     overall = True
-        print("\n\nOverall: Vulnerable")
             except Exception as e:
                 print(str(e) + "\n")
+        print("\n\nOverall: Vulnerable")
     elif x=="4":
         n = args.url.find('=') + 1
         for i in rfi:
