@@ -57,14 +57,17 @@ def get():
     if x=="1":
         for i in sqli:
             req = args.url + i
-
-            with urllib.request.urlopen(req) as response:
-                html = str(response.read())
-            with open("sql_errors.txt", "r") as f:
-                for line in f:
-                    if line in html:
-                        print("\nLikely vulnerble.")
-                        break
+            try:
+                with urllib.request.urlopen(req) as response:
+                    html = str(response.read())
+                with open("sql_errors.txt", "r") as f:
+                    for line in f:
+                        if line in html:
+                            print("\nLikely vulnerble.")
+                            return
+            except Exception as e:
+                print(type(e))
+                print(e)
 
     elif x=="2":
         for i in xss:
@@ -78,7 +81,7 @@ def get():
             except Exception as e:
                 print(type(e))
                 print(e)
-                print(html)
+                
     elif x=="3":atk = lfi
     elif x=="4":atk = rfi
     elif x=="5":atk = rce
