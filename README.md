@@ -51,13 +51,9 @@ Not found.
 Trying: C:\WINDOWS\win.ini
 File detected.
 
-Trying: C:\WINNT\win.ini
-Not found.
 
 ... many lines ommitted...
 
-Trying: C:\php5\sessions\
-Not found.
 
 Trying: C:\php4\sessions\
 Not found.
