@@ -13,3 +13,18 @@ If you want you can use git to clone it using this command, but if you're readin
 ```
 git clone https://githib.com/dxeheh/noctule
 ```
+## Running Noctule
+Noctule is run from the command line. `python noctule.py [arguments]`.  
+Below is the help menu.  
+```
+usage: noctule.py [-h] [-m METHOD] [-u URL] [-p PARAMETER] [-d DATA]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m METHOD, --method METHOD
+                        get, post, or cookie
+  -u URL, --url URL     url to target
+  -p PARAMETER, --parameter PARAMETER
+                        parameter to use
+  -d DATA, --data DATA  data to use for post or cookie method
+  ```
