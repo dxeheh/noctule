@@ -1,5 +1,5 @@
 # noctule
-Noctule is a penetration testing tool designed to scan a target url for a selected vulnerability from a list of common vulnerabilities. These vulnerabilities include **SQL Injection, Cross-Site Scripting, Local File Inclusion, Remote File Inclusion, **and** Remote Code Execution** (in development).
+Noctule is a penetration testing tool designed to scan a target url for a selected vulnerability from a list of common vulnerabilities. These vulnerabilities include **SQL Injection, Cross-Site Scripting, Local File Inclusion, Remote File Inclusion,** and **Remote Code Execution** (in development).
 ## Getting Started
 Noctule is not particurally difficult to install, but here's some basic information about the setup process.
 ### Prerequisites
