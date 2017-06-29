@@ -129,17 +129,23 @@ def cookie():                                                               # Fu
 parser = argparse.ArgumentParser()                                          # Begin agument setup
 
 parser.add_argument('-m', '--method', dest='method', help='get, post, or cookie', default='get')
-parser.add_argument('-u', '--url', dest='url', help='url to target', default='http://www.kapaver.com/product-details.php?product_id=1')
-parser.add_argument('-p', '--parameter', dest='parameter', help='parameter to use')
-parser.add_argument('-d', '--data', dest='data', help='data to use for post or cookie module', default=None)
+parser.add_argument('-u', '--url', dest='url', help='url to target')
+parser.add_argument('-p', '--parameter', dest='parameter', help='parameter to use', default=None)
+parser.add_argument('-d', '--data', dest='data', help='data to use for post or cookie method', default=None)
 
 args = parser.parse_args()                                                  # End argument setup
 
 clearScreen()
-                                                                            # Begin the "main" function
+                                                                            # Change color on Windows and other (hopefully)
 if sys.platform == 'win32':os.system('color a')
-else:os.system('csetterm -foreground green -store')
+else:os.system('setterm -foreground green -store')
 
-if args.method.lower() == 'get':get()
-elif args.method.lower() == 'post':post()
-elif args.method.lower() == 'cookie':cookie()
+if args.url.lower()[0] is not 'h':args.url = 'http://' + args.url           # Add 'http://' to the beginning of the url if it's not there
+
+try:
+    if args.method.lower() == 'get':get()
+    elif args.method.lower() == 'post':post()
+    elif args.method.lower() == 'cookie':cookie()
+    else:parser.print_help()
+except:
+    parser.print_help()
