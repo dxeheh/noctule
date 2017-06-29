@@ -7,3 +7,9 @@ This is a list of things you need to get before you can use Noctule. I'll update
 ```
 Python 3.x
 ```
+### Installing
+Installing is as easy as clicking the green button and then `Download as Zip`  
+If you want you can use git to clone it using this command, but if you're reading this you probably don't have it installed.
+```
+git clone https://githib.com/dxeheh/noctule
+```
