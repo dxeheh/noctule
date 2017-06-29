@@ -13,7 +13,7 @@ If you want you can use git to clone it using this command, but if you're readin
 ```
 git clone https://githib.com/dxeheh/noctule
 ```
-## Running Noctule
+## Using Noctule
 Noctule is run from the command line. `python noctule.py [arguments]`.  
 Below is the help menu.  
 ```
@@ -42,4 +42,26 @@ Running Noctule will prompt you to choose the attack vector you wish to use.
         3. LFI
         4. RFI
         5. RCE
+```
+In this example, LFI is the selected attack vector. Noctule runs through a list of common files and attempts to open them from the server. At the end, it gives an overall result.
+```
+Trying: C:\boot.ini
+Not found.
+
+Trying: C:\WINDOWS\win.ini
+File detected.
+
+Trying: C:\WINNT\win.ini
+Not found.
+
+... many lines ommitted...
+
+Trying: C:\php5\sessions\
+Not found.
+
+Trying: C:\php4\sessions\
+Not found.
+
+
+Overall: Vulnerable
 ```
