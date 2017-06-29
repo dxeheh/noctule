@@ -142,7 +142,6 @@ if args.url.lower()[0] is not 'h':args.url = 'http://' + args.url           # Ad
 try:
     if args.method.lower() == 'get':get()
     elif args.method.lower() == 'post':post()
-    elif args.method.lower() == 'cookie':cookie()
     else:parser.print_help()
 except:
     parser.print_help()
