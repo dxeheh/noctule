@@ -26,5 +26,20 @@ optional arguments:
   -u URL, --url URL     url to target
   -p PARAMETER, --parameter PARAMETER
                         parameter to use
-  -d DATA, --data DATA  data to use for post or cookie method
+  -d DATA, --data DATA  data to use for post or cookie module
   ```
+Running Noctule will prompt you to choose the attack vector you wish to use.
+```
+                         __        __            ____       ____
+       ____  ____  _____/ /___  __/ /__          )   \     /   (
+      / __ \/ __ \/ ___/ __/ / / / / _ \          )_  \_V_/  _(
+     / / / / /_/ / /__/ /_/ /_/ / /  __/            )__   __(
+    /_/ /_/\____/\___/\__/\__,_/_/\___/                `-'
+
+
+        1. SQLi
+        2. XSS
+        3. LFI
+        4. RFI
+        5. RCE
+```
