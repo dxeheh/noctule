@@ -65,4 +65,5 @@ This indicates that the webpage is very likely vulnerable to Local File Inclusio
 ## Authors
 * **@ryanxea** - Literally everything
 ## Acknowledgments
-* **Dice** - Praise Dice!
+* **Dice** - Praise Dice! for helping with issues.
+* **Hitman142** - Feedback and focus group member.
