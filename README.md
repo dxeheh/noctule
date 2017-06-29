@@ -22,11 +22,11 @@ usage: noctule.py [-h] [-m METHOD] [-u URL] [-p PARAMETER] [-d DATA]
 optional arguments:
   -h, --help            show this help message and exit
   -m METHOD, --method METHOD
-                        get, post, or cookie
+                        get or post
   -u URL, --url URL     url to target
   -p PARAMETER, --parameter PARAMETER
                         parameter to use
-  -d DATA, --data DATA  data to use for post or cookie module
+  -d DATA, --data DATA  data to use for the post module
   ```
 Running Noctule will prompt you to choose the attack vector you wish to use.
 ```
