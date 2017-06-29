@@ -104,7 +104,7 @@ def get():                                                                  # Fu
                     overall = True
             except Exception as e:
                 print(str(e) + "\n")
-        print("\n\nOverall: Vulnerable")
+        print("\nOverall: Vulnerable")
     elif x=="4":
         n = args.url.find('=') + 1
         for i in rfi:
@@ -123,15 +123,12 @@ def get():                                                                  # Fu
 def post():                                                                 # Function for the -m post parameter (unfinished)
     print("POST functionality not yet developed.")
 
-def cookie():                                                               # Function for the -m cookie parameter (unfinished)
-    print("COOKIE functionality not yet developed.")
-
 parser = argparse.ArgumentParser()                                          # Begin agument setup
 
-parser.add_argument('-m', '--method', dest='method', help='get, post, or cookie', default='get')
+parser.add_argument('-m', '--method', dest='method', help='get or post', default='get')
 parser.add_argument('-u', '--url', dest='url', help='url to target')
 parser.add_argument('-p', '--parameter', dest='parameter', help='parameter to use', default=None)
-parser.add_argument('-d', '--data', dest='data', help='data to use for post or cookie method', default=None)
+parser.add_argument('-d', '--data', dest='data', help='data to use for the post module', default=None)
 
 args = parser.parse_args()                                                  # End argument setup
 
