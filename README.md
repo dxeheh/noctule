@@ -63,7 +63,7 @@ Overall: Vulnerable
 ```
 This indicates that the webpage is very likely vulnerable to Local File Inclusion.
 ## Authors
-* **@ryanxea** - Literally everything
+* **dxeheh** - Literally everything
 ## Acknowledgments
 * **jojo3NNN** - Praise Dice! for helping with issues.
 * **Hitman142** - Feedback and focus group member.
